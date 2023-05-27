@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 
 urlpatterns = [
@@ -9,4 +10,4 @@ urlpatterns = [
     path('create_revenue/', views.create_revenue, name='create_revenue'),
 ]
 
-
+urlpatterns += staticfiles_urlpatterns()

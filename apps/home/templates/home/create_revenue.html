@@ -5,7 +5,9 @@
 {% block content %}
     <h1>Crear Facturación</h1>
 
+    <a href="/" class="boton-volver">Volver a la página principal</a>
     <form method="POST">
+    <br>
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Guardar</button>
