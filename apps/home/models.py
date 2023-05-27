@@ -29,3 +29,11 @@ class Revenue(models.Model):
 
     def __str__(self):
         return f"{self.company.name} - {self.year}"
+
+class NPT(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    year = models.PositiveIntegerField()
+    cantidad_npt = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.company.name} - {self.year} - {self.cantidad_npt}"

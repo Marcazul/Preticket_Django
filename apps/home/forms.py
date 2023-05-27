@@ -1,5 +1,5 @@
 from django import forms
-from .models import Company, Contract, Revenue
+from .models import Company, Contract, Revenue, NPT
 
 class CompanyForm(forms.ModelForm):
     class Meta:
@@ -31,4 +31,14 @@ class RevenueForm(forms.ModelForm):
             'company': 'Company',
             'year': 'Year',
             'amount': 'Amount',
+        }
+
+class NPTForm(forms.ModelForm):
+    class Meta:
+        model = NPT
+        fields = ['company', 'year', 'cantidad_npt']
+        labels = {
+            'company': 'Company',
+            'year': 'Year',
+            'cantidad_npt': 'Cantidad NPT',
         }
