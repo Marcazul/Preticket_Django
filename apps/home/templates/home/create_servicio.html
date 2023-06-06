@@ -1,15 +1,16 @@
-<!-- create_revenue.html -->
+<!-- create_contract.html -->
 
 {% extends 'home/base.html' %}
 
 {% block content %}
-    <h1>Crear Facturación</h1>
+    <h1>Crear Servicio</h1>
 
     <a href="/" class="boton-volver">Volver a la página principal</a>
     <form method="POST">
     <br>
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Guardar</button>
+    <button type="submit" class="btn btn-success">Crear</button>
+    <a href="/" class="btn btn-secondary">Cancelar</a>
     </form>
 {% endblock %}

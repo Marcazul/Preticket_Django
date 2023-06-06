@@ -19,7 +19,7 @@
      <h1>Dashboard</h1>
      <nav>
        <ol class="breadcrumb">
-         <li class="breadcrumb-item"><a href="/create_company">Home</a></li>
+         <li class="breadcrumb-item"><a href="/create_cliente">Home</a></li>
          <li class="breadcrumb-item active">Dashboard</li>
        </ol>
      </nav>
@@ -58,7 +58,7 @@
                
 
                <div class="card-body">
-                 <h5 class="card-title">Revenue <span>| Total Compañias</span></h5>
+                 <h5 class="card-title">Revenue <span>| Total Clientes</span></h5>
 
                  <div class="d-flex align-items-center">
                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -81,14 +81,14 @@
              <div class="card info-card customers-card">
 
                 <div class="card-body">
-                    <h5 class="card-title">Compañias <span>| Detalle</span></h5>
+                    <h5 class="card-title">Clientes <span>| Detalle</span></h5>
                   
                     <div class="d-flex align-items-center">
                       <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                         <i class="bi bi-people"></i>
                       </div>
                       <div class="ps-3">
-                        <h6>Compañías:</h6>
+                        <h6>Clientes:</h6>
                         <ul>
                           {% for company in companies %}
                             <li>Compañia: {{ company.name }} - Contratos:
@@ -121,11 +121,11 @@
 
            
 
-                <!-- Top Revenue Compañias -->
+                <!-- Top Revenue Clientes -->
                         <div class="col-12">
                             <div class="card top-selling overflow-auto">
                                 <div class="card-body pb-0">
-                                    <h5 class="card-title">Top Compañias <span>| Año</span></h5>
+                                    <h5 class="card-title">Top Clientes <span>| Año</span></h5>
 
                                     <table class="table table-borderless">
                                         <thead>
@@ -161,7 +161,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- End Top Revenue Compañias -->
+                        <!-- End Top Revenue Clientes -->
 
          </div>
        </div><!-- End Left side columns -->
