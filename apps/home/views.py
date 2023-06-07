@@ -4,8 +4,10 @@ from . import forms
 from django.db.models import Sum
 from .models import Cliente, Ganancias, Ventas, Servicio
 from .forms import ClienteForm
-
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth import logout
 from django.db.models import Max
 
 
@@ -123,3 +125,40 @@ def cliente_delete(request, id):
         return redirect('/lista_clientes')
     
     return render(request, 'home/cliente_delete.html', {'cliente': cliente})
+
+def usuarios(request):
+    return render(request, 'home/usuarios.html')
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/usuarios')  # Redirige a la página de inicio de sesión después del registro exitoso
+    else:
+        form = UserCreationForm()
+    return render(request, 'home/signup.html', {'form': form})
+
+def login_view(request):
+    if request.method == 'POST':
+        # Obtener los datos del formulario de inicio de sesión
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        # Autenticar al usuario
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            # Iniciar sesión si las credenciales son válidas
+            login(request, user)
+            # Redirigir al usuario a la página deseada después del inicio de sesión
+            return redirect('/')  # Reemplaza con la URL a donde queremos que vaya
+        else:
+            # Agregar mensaje de error
+            messages.error(request, 'Nombre de usuario o contraseña incorrecta.')
+            
+    return render(request, 'home/login.html')
+
+def log_out(request):
+    logout(request)
+    return redirect('/')
