@@ -1,5 +1,8 @@
 from django import forms
-from .models import Cliente, Servicio, Ganancias, Ventas
+from .models import Cliente, Servicio, Ganancias, Ventas, UserProfile
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
 
 class ClienteForm(forms.ModelForm):
     class Meta:
@@ -51,3 +54,20 @@ class VentasForm(forms.ModelForm):
             'valor': 'Valor',
             'comentarios': 'Comentarios',
         }
+
+# Formulario de registro de usuario con campos adicionales
+class CustomUserCreationForm(UserCreationForm):
+    profesion = forms.CharField(max_length=100)
+    linkedin_profile = forms.URLField(required=False)
+    full_name = forms.CharField(max_length=100)
+    birth_date = forms.DateField(help_text='Enter date in YYYY-MM-DD format')
+    address = forms.CharField(max_length=100)
+    email = forms.EmailField()
+    phone_number = forms.CharField(max_length=20)
+    avatar = forms.ImageField(required=False)
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = UserCreationForm.Meta.fields + ('profesion', 'linkedin_profile', 'full_name',
+                                                 'birth_date', 'address', 'email',
+                                                 'phone_number', 'avatar')

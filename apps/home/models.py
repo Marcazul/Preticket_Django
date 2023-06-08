@@ -1,5 +1,8 @@
 from django.db import models
 from django.utils import formats
+from django.contrib.auth.models import User
+
+
 
 # Create your models here.
 
@@ -59,3 +62,16 @@ class Ventas(models.Model):
 
     def __str__(self):
         return f"{self.cliente.nombre} - Ventas"
+
+
+# Modelo de perfil de usuario
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profesion = models.CharField(max_length=100)
+    linkedin_profile = models.URLField(blank=True)
+    full_name = models.CharField(max_length=100)
+    birth_date = models.DateField()
+    address = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=20)
+    avatar = models.ImageField(upload_to='avatars', blank=True, null = True)

@@ -2,13 +2,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from . import forms
 from django.db.models import Sum
-from .models import Cliente, Ganancias, Ventas, Servicio
+from .models import Cliente, Ganancias, Ventas, Servicio, UserProfile
 from .forms import ClienteForm
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.db.models import Max
+from .forms import CustomUserCreationForm
 
 
 
@@ -131,12 +131,23 @@ def usuarios(request):
 
 def signup_view(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('/usuarios')  # Redirige a la página de inicio de sesión después del registro exitoso
+            user = form.save()  # Guardar el usuario
+            user_profile = UserProfile(user=user)  # Crear el perfil de usuario
+            # Asignar los valores adicionales al perfil de usuario
+            user_profile.profesion = form.cleaned_data['profesion']
+            user_profile.linkedin_profile = form.cleaned_data['linkedin_profile']
+            user_profile.full_name = form.cleaned_data['full_name']
+            user_profile.birth_date = form.cleaned_data['birth_date']
+            user_profile.address = form.cleaned_data['address']
+            user_profile.email = form.cleaned_data['email']
+            user_profile.phone_number = form.cleaned_data['phone_number']
+            user_profile.avatar = request.FILES['avatar']
+            user_profile.save()  # Guardar el perfil de usuario
+            return redirect('/usuarios')  # Redirige a la página deseada después del registro exitoso
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'home/signup.html', {'form': form})
 
 def login_view(request):
@@ -162,3 +173,4 @@ def login_view(request):
 def log_out(request):
     logout(request)
     return redirect('/')
+
