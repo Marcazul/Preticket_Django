@@ -1,43 +1,41 @@
 {% extends 'home/base.html' %}
 
 {% block content %}
-  <h1 style="font-size: 30px;">Listado de Clientes</h1>
-  <table style="border-collapse: collapse; width: 100%;">
-    <colgroup>
-      <col style="width: 20%;">
-      <col style="width: 20%;">
-      <col style="width: 20%;">
-      <col style="width: 20%;">
-      <col style="width: 20%;">
-    </colgroup>
-    <thead>
-      <tr>
-        <th style="font-size: 14px; padding: 10px;">Nombre</th>
-        <th style="font-size: 14px; padding: 10px;">Fecha último servicio</th>
-        <th style="font-size: 14px; padding: 10px;">Fecha última venta</th>
-        <th style="font-size: 14px; padding: 10px;">Monto último servicio</th>
-        <th style="font-size: 14px; padding: 10px;">Valor última venta</th>
-        <th style="font-size: 14px; padding: 10px;">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for cliente in datos_clientes %}
-        <tr>
-          <td style="padding: 10px;">{{ cliente.nombre }}</td>
-          <td style="padding: 10px;">{{ cliente.fecha_ultimo_servicio }}</td>
-          <td style="padding: 10px;">{{ cliente.fecha_venta }}</td>
-          <td style="padding: 10px;">{{ cliente.monto_servicio }}</td>
-          <td style="padding: 10px;">{{ cliente.valor }}</td>
-          <td style="padding: 10px;">
-            <div class="btn-group" role="group" aria-label="Acciones">
-                <a type="button" class="btn btn-success btn-sm" href="/cliente_update/{{ cliente.id }}">Update</a>
-                <a type="button" class="btn btn-danger btn-sm ms-2" href="/cliente_delete/{{ cliente.id }}">Delete</a>
-            </div>
-              
-          </td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  <a href="/" class="boton-volver">Volver a la página principal</a>
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title">Listado de Clientes</h1>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Fecha último servicio</th>
+              <th>Fecha última venta</th>
+              <th>Monto último servicio</th>
+              <th>Valor última venta</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for cliente in datos_clientes %}
+              <tr>
+                <td>{{ cliente.nombre }}</td>
+                <td>{{ cliente.fecha_ultimo_servicio }}</td>
+                <td>{{ cliente.fecha_venta }}</td>
+                <td>{{ cliente.monto_servicio }}</td>
+                <td>{{ cliente.valor }}</td>
+                <td>
+                  <div class="btn-group" role="group" aria-label="Acciones">
+                    <a type="button" class="btn btn-success btn-sm" href="/cliente_update/{{ cliente.id }}">Update</a>
+                    <a type="button" class="btn btn-danger btn-sm ms-2" href="/cliente_delete/{{ cliente.id }}">Delete</a>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <a href="/" class="btn btn-primary">Volver a la página principal</a>
+    </div>
+  </div>
 {% endblock %}

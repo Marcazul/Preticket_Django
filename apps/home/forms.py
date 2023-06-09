@@ -2,6 +2,7 @@ from django import forms
 from .models import Cliente, Servicio, Ganancias, Ventas, UserProfile
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import UserProfile
 
 
 class ClienteForm(forms.ModelForm):
@@ -71,3 +72,11 @@ class CustomUserCreationForm(UserCreationForm):
         fields = UserCreationForm.Meta.fields + ('profesion', 'linkedin_profile', 'full_name',
                                                  'birth_date', 'address', 'email',
                                                  'phone_number', 'avatar')
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('profesion', 'linkedin_profile', 'full_name', 'birth_date', 'address', 'email', 'phone_number', 'avatar')
+        widgets = {
+            'birth_date': forms.DateInput(attrs={'placeholder': 'YYYY-MM-DD'}),
+        }

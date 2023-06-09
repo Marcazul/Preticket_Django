@@ -8,7 +8,9 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.db.models import Max
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, UserProfileForm
+from django.contrib.auth.models import User
+
 
 
 
@@ -46,7 +48,7 @@ def create_servicio(request):
         form = forms.ServicioForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('/')
     else:
         form = forms.ServicioForm()
     context = {'form': form}
@@ -59,7 +61,7 @@ def create_ganancias(request):
         form = forms.GananciasForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('/')
     else:
         form = forms.GananciasForm()
     context = {'form': form}
@@ -72,7 +74,7 @@ def create_ventas(request):
         form = forms.VentasForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('/')
     else:
         form = forms.VentasForm()
     context = {'form': form}
@@ -174,3 +176,21 @@ def log_out(request):
     logout(request)
     return redirect('/')
 
+
+def edit_profile(request):
+    user = request.user  # Obtener el usuario actual
+    user_profile = user.userprofile  # Obtener el perfil de usuario actual
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+        if form.is_valid():
+            form.save()  # Guardar los cambios en el perfil de usuario
+            return redirect('/usuarios')  # Redirigir a la página deseada después de la edición exitosa
+    else:
+        form = UserProfileForm(instance=user_profile)
+
+    return render(request, 'home/edit_profile.html', {'form': form})
+
+def user_list(request):
+    users = User.objects.all().values('username', 'date_joined')
+    return render(request, 'home/user_list.html', {'users': users})

@@ -46,30 +46,27 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="#" class="logo d-flex align-items-center">
-        <img src="{% static 'home/assets/img/logo.png' %}" alt="">
-        <span class="d-none d-lg-block">Cias Sevicios</span>
+        <span class="d-none d-lg-block flex-grow-1">Estética & Cosmetología </span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div><!-- End Search Bar -->
+    <div class="d-flex align-items-center justify-content-between" style="width: 100%">
+      <a href="#" class="logo d-flex align-items-center" style="width: 100%">
+        <img src="{% static 'home/assets/img/beauty.png' %}" alt="" style="width: 600px; height: 1600px;">
+      </a>
+    </div><!-- End Logo -->
+       
     
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
   
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
+        <a class="nav-link nav-icon" href="/">
+          <i class="bi bi-house-fill"></i>
+        </a><!-- End Home Icon -->
+        
   
         <li class="nav-item dropdown">
-  
+          
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
             <span class="badge bg-primary badge-number">4</span>
@@ -230,8 +227,8 @@
  
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Marcos Azulay</h6>
-              <span>Web Designer</span>
+              <h6>{{ request.user.userprofile.full_name }}</h6>
+              <span>{{ request.user.userprofile.profesion }}</span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -249,7 +246,7 @@
    
    
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="/">
+              <a class="dropdown-item d-flex align-items-center" href="/edit_profile">
                 <i class="bi bi-gear"></i>
                 <span>Account Settings</span>
               </a>
@@ -259,7 +256,7 @@
             </li>
   
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="/">
+              <a class="dropdown-item d-flex align-items-center" href="/user_list">
                 <i class="bi bi-question-circle"></i>
                 <span>Need Help?</span>
               </a>
