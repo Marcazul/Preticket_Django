@@ -52,7 +52,7 @@
 
     <div class="d-flex align-items-center justify-content-between" style="width: 100%">
       <a href="#" class="logo d-flex align-items-center" style="width: 100%">
-        <img src="{% static 'home/assets/img/beauty.png' %}" alt="" style="width: 600px; height: 1600px;">
+        <img src="{% static 'home/assets/img/beauty3.png' %}" alt="" style="width: 150px; height: 1600px;">
       </a>
     </div><!-- End Logo -->
        
@@ -352,7 +352,29 @@
         </ul>
       </li><!-- End Forms Nav -->
 
-      
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#producto-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Productos</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="producto-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/nueva_categoria">
+              <i class="bi bi-circle"></i><span>Nueva Categoria</span>
+            </a>
+          </li>
+          <li>
+            <a href="/nuevo_producto">
+              <i class="bi bi-circle"></i><span>Nuevo Producto</span>
+            </a>
+          </li>
+          
+          <li>
+            <a href="/create_ventas">
+              <i class="bi bi-circle"></i><span>Cargar Ventas</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Forms Nav -->
 
       
 
