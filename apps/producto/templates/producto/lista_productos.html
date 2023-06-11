@@ -1,0 +1,44 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+  <h2>Lista de Productos</h2>
+
+  <!-- Formulario de filtrado -->
+  <form method="get" action="">
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <label for="categoria">Categoría:</label>
+        <select name="categoria" id="categoria" class="form-control">
+          <option value="">Todos</option>
+          {% for categoria in categorias %}
+            <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-4 mt-4">
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="row">
+    {% for producto in productos %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-img-top" style="overflow: hidden; height: 200px;">
+            <img src="{{ producto.imagen.url }}" class="img-fluid" style="height: 100%;" alt="Imagen">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ producto.nombre_producto }}</h5>
+            <p class="card-text">Precio: {{ producto.precio }}</p>
+            <p class="card-text">Categoría: {{ producto.categoria }}</p>
+            <p class="card-text">Usuario: {{ producto.usuario }}</p>
+            
+            <a type="button" class="btn btn-success btn-sm" href="/ver_producto/{{ producto.id }}">Ver</a>
+            
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

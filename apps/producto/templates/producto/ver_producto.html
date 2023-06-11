@@ -1,0 +1,31 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-6 text-center">
+      <img src="{{ producto.imagen.url }}" alt="Imagen" class="img-fluid">
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">{{ producto.nombre_producto }}</h2>
+          <p class="card-text">Descripción: {{ producto.descripcion }}</p>
+          <p class="card-text">Precio: {{ producto.precio }}</p>
+          <p class="card-text">Categoría: {{ producto.categoria }}</p>
+          <p class="card-text">Usuario: {{ producto.usuario }}</p>
+          <p class="card-text">Creado por: {{ producto.usuario.username }}</p>
+          <p class="card-text">Fecha de creación: {{ producto.created_on }}</p>
+          <p class="card-text">Fecha de modificación: {{ producto.updated_on }}</p>
+          
+          {% if user.is_authenticated %}
+            <a type="button" class="btn btn-success btn-sm" href="/editar_producto/{{ producto.id }}">Editar</a>
+          {% else %}
+            <p>Por favor, <a href="/usuarios">regístrate</a> para editar este producto.</p>
+          {% endif %}
+          <a href="/lista_productos" class="btn btn-success btn-sm">Volver</a>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

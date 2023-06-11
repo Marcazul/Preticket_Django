@@ -12,13 +12,27 @@
               <img src="{% static 'home/assets/img/beauty4.png' %}" alt="Imagen" class="mx-auto d-block producto-image" style="max-width: 500px;">
             </div>
           </div>
-          <div class="card-body">
-            <form method="post">
-              {% csrf_token %}
-              {{ categoria_form.as_p }}
-              <button type="submit" class="btn btn-primary">Guardar</button>
-            </form>
-          </div>
+          
+            <div class="card-body">
+              <form method="post">
+                {% csrf_token %}
+                {% if categoria_form.errors %}
+                  <div class="alert alert-danger">
+                    <ul>
+                      {% for field_errors in categoria_form.errors.values %}
+                        {% for error in field_errors %}
+                          <li>{{ error }}</li>
+                        {% endfor %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
+                {{ categoria_form.as_p }}
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </form>
+            </div>
+
+
         </div>
       </div>
     </div>

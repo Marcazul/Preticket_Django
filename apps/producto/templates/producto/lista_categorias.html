@@ -1,0 +1,39 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block content %}
+  <div class="container">
+    <h2>Listado de Categorías</h2>
+
+    <!-- Imagen de presentación y detalles de categoría -->
+    <div class="row mt-4">
+      <div class="col-md-5">
+        <img src="{% static 'home/assets/img/productos.jpg' %}" class="img-fluid rounded" alt="Imagen de presentación">
+      </div>
+      <div class="col-md-7">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Nombre Categoría</th>
+              <th>Cantidad de Productos</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for categoria in categorias %}
+              <tr>
+                <td>{{ categoria.nombre }}</td>
+                <td>{{ categoria.producto_set.count }}</td>
+                <td>
+                  <a href="/editar_categoria/{{ categoria.id }}" class="btn btn-primary btn-sm">Editar</a>
+                  <a href="/borrar_categoria/{{ categoria.id }}" class="btn btn-danger btn-sm">Borrar</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <a href="/nueva_categoria" class="btn btn-success mt-4">Crear Categoría</a>
+  </div>
+{% endblock %}
