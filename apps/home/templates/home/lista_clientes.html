@@ -13,17 +13,19 @@
               <th>Fecha última venta</th>
               <th>Monto último servicio</th>
               <th>Valor última venta</th>
+              
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
             {% for cliente in datos_clientes %}
               <tr>
-                <td>{{ cliente.nombre }}</td>
+                <td><a href="/cliente_detalle/{{ cliente.id }}">{{ cliente.nombre }}</a></td>
                 <td>{{ cliente.fecha_ultimo_servicio }}</td>
                 <td>{{ cliente.fecha_venta }}</td>
                 <td>{{ cliente.monto_servicio }}</td>
                 <td>{{ cliente.valor }}</td>
+                
                 <td>
                   <div class="btn-group" role="group" aria-label="Acciones">
                     <a type="button" class="btn btn-success btn-sm" href="/cliente_update/{{ cliente.id }}">Update</a>
@@ -35,7 +37,7 @@
           </tbody>
         </table>
       </div>
-      <a href="/" class="btn btn-primary">Volver a la página principal</a>
+      
     </div>
   </div>
 {% endblock %}

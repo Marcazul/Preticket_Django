@@ -30,6 +30,11 @@ class Cliente(models.Model):
     telefono = models.CharField(max_length=20)
     comentarios = models.TextField()
 
+    def calcular_ganancia_total(self):
+        ganancias = Ganancias.objects.filter(cliente=self)
+        total = sum(ganancia.monto for ganancia in ganancias)
+        return total
+
     def __str__(self):
         return self.nombre
     

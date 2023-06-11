@@ -1,0 +1,57 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title">Detalle del Cliente</h1>
+      <h3>{{ cliente.nombre }}</h3>
+      <h4>Fecha de último servicio: {{ cliente.fecha_ultimo_servicio }}</h4>
+      <h4>Fecha de última venta: {{ cliente.fecha_venta }}</h4>
+      
+      <h2>Listado de Servicios:</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Tipo</th>
+            <th>Detalle</th>
+            <th>Monto</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for servicio in cliente.servicio_set.all %}
+            <tr>
+              <td>{{ servicio.fecha_ultimo_servicio }}</td>
+              <td>Servicio</td>
+              <td>{{ servicio.tipo_servicio }}</td>
+              <td>{{ servicio.monto_servicio }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <h2>Listado de Ventas:</h2>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Tipo</th>
+            <th>Detalle</th>
+            <th>Monto</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for venta in cliente.ventas_set.all %}
+            <tr>
+              <td>{{ venta.fecha_venta }}</td>
+              <td>Venta</td>
+              <td>{{ venta.producto }}</td>
+              <td>{{ venta.valor }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+{% endblock %}

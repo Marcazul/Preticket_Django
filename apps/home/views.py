@@ -82,25 +82,30 @@ def create_ventas(request):
     return render(request, 'home/create_ventas.html', context)
 
 def lista_clientes(request):
-    clientes = Cliente.objects.prefetch_related('servicio_set').all()
+    clientes = Cliente.objects.prefetch_related('servicio_set', 'ganancias_set', 'ventas_set').all()
 
     datos_clientes = []
     for cliente in clientes:
         ultimo_servicio = cliente.servicio_set.order_by('-fecha_ultimo_servicio').first()
         ultima_venta = cliente.ventas_set.order_by('-fecha_venta').first()
 
+        ganancias = cliente.ganancias_set.all()
+        ganancia_total = sum(ganancia.monto for ganancia in ganancias)
+
         datos_cliente = {
-            'id': cliente.id,  # Agregar el ID del cliente
+            'id': cliente.id,
             'nombre': cliente.nombre,
             'fecha_ultimo_servicio': ultimo_servicio.fecha_ultimo_servicio if ultimo_servicio else None,
             'fecha_venta': ultima_venta.fecha_venta if ultima_venta else None,
             'monto_servicio': ultimo_servicio.monto_servicio if ultimo_servicio else None,
             'valor': ultima_venta.valor if ultima_venta else None,
+            'ganancia_total': ganancia_total,
         }
 
         datos_clientes.append(datos_cliente)
 
     return render(request, 'home/lista_clientes.html', {'datos_clientes': datos_clientes})
+
 
 def cliente_update(request, id):
     cliente = Cliente.objects.get(id=id)
@@ -130,6 +135,42 @@ def cliente_delete(request, id):
 
 def usuarios(request):
     return render(request, 'home/usuarios.html')
+
+
+def cliente_detalle(request, cliente_id):
+    cliente = get_object_or_404(Cliente, id=cliente_id)
+    
+    servicios = Servicio.objects.filter(cliente=cliente)
+    ventas = Ventas.objects.filter(cliente=cliente)
+    
+    detalles = []
+    
+    for servicio in servicios:
+        detalle = {
+            'fecha': servicio.fecha_ultimo_servicio,
+            'tipo': 'Servicio',
+            'detalle': servicio.tipo_servicio,
+            'monto': servicio.monto_servicio,
+        }
+        detalles.append(detalle)
+    
+    for venta in ventas:
+        detalle = {
+            'fecha': venta.fecha_venta,
+            'tipo': 'Venta',
+            'detalle': venta.producto,
+            'monto': venta.valor,
+        }
+        detalles.append(detalle)
+    
+    return render(request, 'home/cliente_detalle.html', {'cliente': cliente, 'detalles': detalles})
+
+
+
+
+
+
+
 
 def signup_view(request):
     if request.method == 'POST':
