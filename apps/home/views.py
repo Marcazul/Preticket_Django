@@ -17,11 +17,15 @@ from .forms import VentasForm
 from decimal import Decimal
 
 
-
-
 def index(request):
-    clientes = Cliente.objects.all()
+    total_clientes = Cliente.objects.count()
+    total_ventas = Ventas.objects.count()
+    total_servicios = Servicio.objects.count()
 
+    total_monto_servicios = Servicio.objects.aggregate(total=Sum('monto_servicio'))['total']
+    total_valor_ventas = Ventas.objects.aggregate(total=Sum('valor'))['total']
+    
+    clientes = Cliente.objects.all()
     for cliente in clientes:
         servicios = Servicio.objects.filter(cliente=cliente)
         total_monto_servicio = servicios.aggregate(total=Sum('monto_servicio'))['total']
@@ -30,9 +34,15 @@ def index(request):
 
     context = {
         'clientes': clientes,
+        'total_clientes': total_clientes,
+        'total_ventas': total_ventas,
+        'total_servicios': total_servicios,
+
+        'total_monto_servicios': total_monto_servicios,
+        'total_valor_ventas': total_valor_ventas,
     }
 
-    return render(request, 'home/index.html', {'clientes': clientes})
+    return render(request, 'home/index.html', context)
 
 
 def create_cliente(request):

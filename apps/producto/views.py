@@ -5,6 +5,7 @@ from .models import Producto, Categoria
 from .forms import ProductoForm, CategoriaForm, ComentarioForm
 from django.urls import reverse
 
+
 def lista_productos(request):
     # Obtener todos los productos
     productos = Producto.objects.all()
@@ -125,3 +126,4 @@ def borrar_categoria(request, pk):
         return redirect('/lista_categorias')
 
     return render(request, 'producto/borrar_categoria.html', {'categoria': categoria})
+

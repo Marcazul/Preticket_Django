@@ -40,11 +40,12 @@
                     
                             <div class="d-flex align-items-center">
                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                <i class="bi bi-alarm"></i>
+                                <i class="bi bi-person-bounding-box"></i>
+                              </div>
+                              <div class="ps-3">
+                                <h6>{{ total_clientes }} Clientes</h6>
                             </div>
-                                <div class="ps-3">
-                                    <h6>{{ total_Clientes }}</h6>
-                                </div>
+                            
                             </div>
                         </div>
                 
@@ -58,14 +59,14 @@
                
 
                <div class="card-body">
-                 <h5 class="card-title">Revenue <span>| Total Clientes</span></h5>
+                 <h5 class="card-title">Servicios <span>| cantidad</span></h5>
 
                  <div class="d-flex align-items-center">
                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                     <i class="bi bi-currency-dollar"></i>
+                     <i class="bi bi-hand-thumbs-up-fill"></i>
                    </div>
                    <div class="ps-3">
-                     <h6>{{ total_revenue }}</h6>
+                     <h6>{{ total_servicios }}</h6>
                      
 
                    </div>
@@ -74,11 +75,81 @@
 
              </div>
            </div>
+  
 
-            
-           
+           <div class="col-xxl-4 col-md-6">
+            <div class="card info-card revenue-card">
 
-                
+              
+
+              <div class="card-body">
+                <h5 class="card-title">Ventas <span>| cantidad</span></h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-heart-fill"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>{{ total_ventas }}</h6>
+                    
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-xxl-4 col-md-6">
+            <div class="card info-card revenue-card">
+
+              
+
+              <div class="card-body">
+                <h5 class="card-title">Ganancias <span>| Ventas</span></h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-currency-dollar"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>{{ total_valor_ventas }}</h6>
+                    
+
+                  </div>
+                </div>
+              </div>
+
+              
+
+            </div>
+          </div>
+
+          <div class="col-xxl-4 col-md-6">
+            <div class="card info-card revenue-card">
+
+              
+
+              <div class="card-body">
+                <h5 class="card-title">Ganancias <span>| Servicios</span></h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-currency-dollar"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>{{ total_monto_servicios }}</h6>
+                    
+
+                  </div>
+                </div>
+              </div>
+
+              
+
+            </div>
+          </div>
+   
          </div>
        </div><!-- End Left side columns -->
 
@@ -87,68 +158,11 @@
         <div class="col-lg-4">
           <!-- Recent Activity -->
           <!-- Users Card -->
-          <div class="col-xxl-4 col-xl-12">
-            <div class="card info-card users-card">
-              <div class="card-body">
-                <h5 class="card-title">Usuarios Registrados</h5>
-                <div class="card-text">
-                  {% if users %}
-                    <ul>
-                      {% for user in users %}
-                        <li>{{ user.username }}</li>
-                      {% endfor %}
-                    </ul>
-                  {% else %}
-                    <p>No se encontraron usuarios registrados.</p>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-          </div>
+          
 
         </div><!-- End col-lg-4 -->
 
-        <!-- Top Revenue Clientes -->
-        <div class="col-12">
-          <div class="card top-selling overflow-auto">
-              <div class="card-body pb-0">
-                  <h5 class="card-title">Top Clientes <span>| Año</span></h5>
-
-                  <table class="table table-borderless">
-                      <thead>
-                          <tr>
-                              <th scope="col"></th>
-                              <th scope="col">Nombre</th>
-                              <th scope="col">Año</th>
-                              <th scope="col"></th>
-                              <th scope="col">Revenue</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          {% for company in companies %}
-                          {% for revenue in company.revenue_list %}
-                          <tr>
-                              <th scope="row">
-                                  <a href="#">
-                                      <img src="{% static 'home/assets/img/product-' %}{{ forloop.parentloop.counter }}.jpg' %}" alt="">
-                                  </a>
-                              </th>
-                              <td>
-                                  <a href="#" class="text-primary fw-bold">{{ company.name }}</a>
-                              </td>
-                              <td>{{ revenue.year }}</td>
-                              <td class="fw-bold">{{ company.total_npt }}</td>
-                              <td>{{ revenue.amount }}</td>
-                          </tr>
-                          {% endfor %}
-                          {% endfor %}
-                      </tbody>
-                  </table>
-
-              </div>
-          </div>
-      </div>
-      <!-- End Top Revenue Clientes -->
+        
 
 
     <!-- Customers Card -->
@@ -165,7 +179,7 @@
                 <thead>
                   <tr>
                     <th>Cliente</th>
-                    <th>Último Servicio</th>
+                    
                     <th>Monto</th>
                   </tr>
                 </thead>
@@ -173,8 +187,8 @@
                   {% for cliente in clientes %}
                     <tr>
                       <td>{{ cliente.nombre }}</td>
-                      <td>{{ cliente.servicio_set.last.fecha_ultimo_servicio }}</td>
-                      <td>{{ cliente.servicio_set.last.monto_servicio }}</td>
+                      
+                      <td>${{ cliente.servicio_set.last.monto_servicio }}</td>
                     </tr>
                   {% endfor %}
                 </tbody>
