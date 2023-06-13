@@ -1,0 +1,15 @@
+<!-- borrar_venta.html -->
+
+{% extends 'home/base.html' %}
+
+{% block content %}
+  <h1>Borrar Venta</h1>
+
+  <a href="/" class="boton-volver">Volver a la página principal</a>
+  <form method="POST">
+    {% csrf_token %}
+    <p>¿Estás seguro de que deseas borrar esta venta?</p>
+    <button type="submit" class="btn btn-danger">Borrar</button>
+    <a href="/" class="btn btn-secondary">Cancelar</a>
+  </form>
+{% endblock %}

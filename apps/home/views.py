@@ -10,6 +10,11 @@ from django.contrib.auth import logout
 from django.db.models import Max
 from .forms import CustomUserCreationForm, UserProfileForm
 from django.contrib.auth.models import User
+from django.db.models import Sum, F
+from .forms import ServicioForm
+from .models import Ventas
+from .forms import VentasForm
+from decimal import Decimal
 
 
 
@@ -55,6 +60,76 @@ def create_servicio(request):
 
     return render(request, 'home/create_servicio.html', context)
 
+def create_ventas(request):
+    if request.method == 'POST':
+        form = forms.VentasForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = forms.VentasForm()
+    context = {'form': form}
+
+    return render(request, 'home/create_ventas.html', context)
+
+
+
+def editar_servicio(request, servicio_id):
+    servicio = get_object_or_404(Servicio, id=servicio_id)
+
+    if request.method == 'POST':
+        form = ServicioForm(request.POST, instance=servicio)
+        if form.is_valid():
+            form.save()
+            return redirect('/lista_clientes')
+    else:
+        form = ServicioForm(instance=servicio)
+
+    context = {'form': form, 'servicio_id': servicio_id}  # Agregar 'servicio_id' al contexto
+    return render(request, 'home/editar_servicio.html', context)
+
+
+
+
+def borrar_servicio(request, servicio_id):
+    servicio = get_object_or_404(Servicio, id=servicio_id)
+
+    if request.method == 'POST':
+        servicio.delete()
+        return redirect('/lista_clientes')
+
+    context = {'servicio': servicio}
+    return render(request, 'home/borrar_servicio.html', context)
+
+
+
+
+def editar_venta(request, venta_id):
+    venta = get_object_or_404(Ventas, id=venta_id)
+
+    if request.method == 'POST':
+        form = VentasForm(request.POST, instance=venta)
+        if form.is_valid():
+            form.save()
+            return redirect('/lista_clientes')
+    else:
+        form = VentasForm(instance=venta)
+
+    context = {'form': form, 'venta_id': venta_id}
+    return render(request, 'home/editar_venta.html', context)
+
+
+def borrar_venta(request, venta_id):
+    venta = get_object_or_404(Ventas, id=venta_id)
+
+    if request.method == 'POST':
+        venta.delete()
+        return redirect('/lista_clientes')
+
+    context = {'venta': venta}
+    return render(request, 'home/borrar_venta.html', context)
+
+
 
 def create_ganancias(request):
     if request.method == 'POST':
@@ -69,42 +144,22 @@ def create_ganancias(request):
     return render(request, 'home/create_ganancias.html', context)
 
 
-def create_ventas(request):
-    if request.method == 'POST':
-        form = forms.VentasForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-    else:
-        form = forms.VentasForm()
-    context = {'form': form}
 
-    return render(request, 'home/create_ventas.html', context)
 
 def lista_clientes(request):
-    clientes = Cliente.objects.prefetch_related('servicio_set', 'ganancias_set', 'ventas_set').all()
-
+    clientes = Cliente.objects.all()
     datos_clientes = []
+
     for cliente in clientes:
-        ultimo_servicio = cliente.servicio_set.order_by('-fecha_ultimo_servicio').first()
-        ultima_venta = cliente.ventas_set.order_by('-fecha_venta').first()
-
-        ganancias = cliente.ganancias_set.all()
-        ganancia_total = sum(ganancia.monto for ganancia in ganancias)
-
         datos_cliente = {
             'id': cliente.id,
             'nombre': cliente.nombre,
-            'fecha_ultimo_servicio': ultimo_servicio.fecha_ultimo_servicio if ultimo_servicio else None,
-            'fecha_venta': ultima_venta.fecha_venta if ultima_venta else None,
-            'monto_servicio': ultimo_servicio.monto_servicio if ultimo_servicio else None,
-            'valor': ultima_venta.valor if ultima_venta else None,
-            'ganancia_total': ganancia_total,
         }
 
         datos_clientes.append(datos_cliente)
 
     return render(request, 'home/lista_clientes.html', {'datos_clientes': datos_clientes})
+
 
 
 def cliente_update(request, id):
@@ -137,39 +192,32 @@ def usuarios(request):
     return render(request, 'home/usuarios.html')
 
 
+
 def cliente_detalle(request, cliente_id):
-    cliente = get_object_or_404(Cliente, id=cliente_id)
-    
+    cliente = Cliente.objects.get(id=cliente_id)
     servicios = Servicio.objects.filter(cliente=cliente)
     ventas = Ventas.objects.filter(cliente=cliente)
     
-    detalles = []
+    total_servicios = servicios.aggregate(Sum('monto_servicio'))['monto_servicio__sum']
+    total_ventas = ventas.aggregate(Sum('valor'))['valor__sum']
+
+    if total_servicios is None:
+        total_servicios = Decimal(0)
+
+    if total_ventas is None:
+        total_ventas = Decimal(0)
+
+    total_ganancia = total_servicios + total_ventas
+
     
-    for servicio in servicios:
-        detalle = {
-            'fecha': servicio.fecha_ultimo_servicio,
-            'tipo': 'Servicio',
-            'detalle': servicio.tipo_servicio,
-            'monto': servicio.monto_servicio,
-        }
-        detalles.append(detalle)
-    
-    for venta in ventas:
-        detalle = {
-            'fecha': venta.fecha_venta,
-            'tipo': 'Venta',
-            'detalle': venta.producto,
-            'monto': venta.valor,
-        }
-        detalles.append(detalle)
-    
-    return render(request, 'home/cliente_detalle.html', {'cliente': cliente, 'detalles': detalles})
-
-
-
-
-
-
+    return render(request, 'home/cliente_detalle.html', {
+        'cliente': cliente,
+        'servicios': servicios,
+        'ventas': ventas,
+        'total_servicios': total_servicios,
+        'total_ventas': total_ventas,
+        'total_ganancia': total_ganancia
+    })
 
 
 def signup_view(request):

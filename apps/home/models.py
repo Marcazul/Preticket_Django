@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import formats
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
+import datetime
 
 
 
@@ -41,14 +43,14 @@ class Cliente(models.Model):
     
 class Servicio(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    fecha_primer_servicio = models.DateField()
-    fecha_ultimo_servicio = models.DateField()
+    fecha_servicio = models.DateField(default=datetime.date.today)
     tipo_servicio = models.CharField(max_length=100)
     monto_servicio = models.DecimalField(max_digits=10, decimal_places=2)
     comentarios = models.TextField()
 
     def __str__(self):
         return f"{self.cliente.nombre} - {self.tipo_servicio}"
+
 
 class Ganancias(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)

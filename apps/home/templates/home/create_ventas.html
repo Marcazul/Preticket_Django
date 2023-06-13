@@ -1,16 +1,20 @@
-<!-- create_npt.html -->
-
 {% extends 'home/base.html' %}
 
 {% block content %}
-    <h1>Crear Ventas</h1>
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">Crear Ventas</h1>
 
-    <a href="/" class="boton-volver">Volver a la página principal</a>
-    <form method="POST">
-        <br>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Crear</button>
-        <a href="/" class="btn btn-secondary">Cancelar</a>
-    </form>
+            <form method="POST">
+                <br>
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.as_p }}
+                    <small id="fechaAyuda" class="form-text text-muted">Formato: MM/DD/YYYY</small>
+                </div>
+                <button type="submit" class="btn btn-success">Crear</button>
+                <a href="/" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
 {% endblock %}

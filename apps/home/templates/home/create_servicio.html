@@ -1,16 +1,43 @@
-<!-- create_contract.html -->
-
 {% extends 'home/base.html' %}
 
 {% block content %}
-    <h1>Crear Servicio</h1>
-
-    <a href="/" class="boton-volver">Volver a la página principal</a>
-    <form method="POST">
-    <br>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-success">Crear</button>
-    <a href="/" class="btn btn-secondary">Cancelar</a>
-    </form>
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title">Nuevo Servicio</h1>
+            
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="{{ form.cliente.id_for_label }}" class="form-label">Cliente</label>
+                    {{ form.cliente }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.fecha_servicio.id_for_label }}" class="form-label">Fecha de Servicio</label>
+                    {{ form.fecha_servicio }}
+                    {% if form.fecha_servicio.errors %}
+                        <div class="text-danger">
+                            {{ form.fecha_servicio.errors }}
+                        </div>
+                    {% endif %}
+                    <div class="text-muted">Formato: DD/MM/YYYY</div>
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.tipo_servicio.id_for_label }}" class="form-label">Tipo de Servicio</label>
+                    {{ form.tipo_servicio }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.monto_servicio.id_for_label }}" class="form-label">Monto del Servicio</label>
+                    {{ form.monto_servicio }}
+                </div>
+                <div class="mb-3">
+                    <label for="{{ form.comentarios.id_for_label }}" class="form-label">Comentarios</label>
+                    {{ form.comentarios }}
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-success">Crear</button>
+                    <a href="/" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}

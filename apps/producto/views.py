@@ -19,7 +19,11 @@ def lista_productos(request):
     if categoria_id:
         productos = productos.filter(categoria_id=categoria_id)
 
-    return render(request, 'producto/lista_productos.html', {'productos': productos, 'categorias': categorias})
+    # Obtener el total de productos cargados
+    total_productos = productos.count()
+    
+
+    return render(request, 'producto/lista_productos.html', {'productos': productos, 'categorias': categorias, 'total_productos': total_productos})
 
 def lista_categorias(request):
     categorias = Categoria.objects.all()

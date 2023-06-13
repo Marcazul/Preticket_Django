@@ -1,57 +1,89 @@
 {% extends 'home/base.html' %}
-
 {% block content %}
   <div class="card">
     <div class="card-body">
-      <h1 class="card-title">Detalle del Cliente</h1>
-      <h3>{{ cliente.nombre }}</h3>
-      <h4>Fecha de último servicio: {{ cliente.fecha_ultimo_servicio }}</h4>
-      <h4>Fecha de última venta: {{ cliente.fecha_venta }}</h4>
-      
-      <h2>Listado de Servicios:</h2>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>Tipo</th>
-            <th>Detalle</th>
-            <th>Monto</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for servicio in cliente.servicio_set.all %}
-            <tr>
-              <td>{{ servicio.fecha_ultimo_servicio }}</td>
-              <td>Servicio</td>
-              <td>{{ servicio.tipo_servicio }}</td>
-              <td>{{ servicio.monto_servicio }}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      <h1 class="card-title">Detalle del cliente</h1>
+      <p>Nombre del cliente: {{ cliente.nombre }}</p>
+      <p>Fecha de nacimiento: {{ cliente.fecha_nacimiento }}</p>
+      <p>Dirección: {{ cliente.direccion }}</p>
+      <p>Teléfono: {{ cliente.telefono }}</p>
+      <p>Correo electrónico: {{ cliente.email }}</p>
+      <p>Comentarios: {{ cliente.comentarios }}</p>
+    </div>
+  </div>
 
-      <h2>Listado de Ventas:</h2>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>Tipo</th>
-            <th>Detalle</th>
-            <th>Monto</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for venta in cliente.ventas_set.all %}
+  <div class="card mt-4">
+    <div class="card-body">
+      <h1 class="card-title">Detalle de servicios realizados</h1>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
             <tr>
-              <td>{{ venta.fecha_venta }}</td>
-              <td>Venta</td>
-              <td>{{ venta.producto }}</td>
-              <td>{{ venta.valor }}</td>
+              <th>Fecha Servicio</th>
+              <th>Tipo Servicio</th>
+              <th>Monto Servicio</th>
+              <th>Comentarios</th>
+              <th>Acciones</th>
             </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {% for servicio in servicios %}
+              <tr>
+                <td>{{ servicio.fecha_servicio }}</td>
+                <td>{{ servicio.tipo_servicio }}</td>
+                <td>${{ servicio.monto_servicio }}</td>
+                <td>{{ servicio.comentarios }}</td>
+                <td>
+                  <a href="/editar_servicio/{{ servicio.id }}" class="btn btn-primary btn-sm me-2">Editar</a>
+                  <a href="/borrar_servicio/{{ servicio.id }}" class="btn btn-danger btn-sm">Borrar</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
+  <div class="card mt-4">
+    <div class="card-body">
+      <h1 class="card-title">Detalle de Ventas realizadas</h1>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Fecha Venta</th>
+              <th>Producto</th>
+              <th>Valor Venta</th>
+              <th>Comentarios</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for venta in ventas %}
+              <tr>
+                <td>{{ venta.fecha_venta }}</td>
+                <td>{{ venta.producto }}</td>
+                <td>${{ venta.valor }}</td>
+                <td>{{ venta.comentarios }}</td>
+                <td>
+                  <a href="/editar_venta/{{ venta.id }}" class="btn btn-primary btn-sm me-2">Editar</a>
+                  <a href="/borrar_venta/{{ venta.id }}" class="btn btn-danger btn-sm">Borrar</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-body">
+      <h1 class="card-title">Totales</h1>
+      <p>Total Servicios: ${{ total_servicios }}</p>
+      <p>Total Ventas: ${{ total_ventas }}</p>
+      <p>Total Ganancia del cliente: ${{ total_ganancia }}</p>
     </div>
   </div>
 {% endblock %}

@@ -39,8 +39,6 @@ class Migration(migrations.Migration):
             name='Servicio',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('fecha_primer_servicio', models.DateField()),
-                ('fecha_ultimo_servicio', models.DateField()),
                 ('tipo_servicio', models.CharField(max_length=100)),
                 ('monto_servicio', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('comentarios', models.TextField()),

@@ -43,19 +43,55 @@
   
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
+    
+    <div class="container">
+      <div class="row">
+          <div class="col-12">
+              <div class="d-flex align-items-center justify-content-center">
+                  <a href="#" class="logo d-flex align-items-center">
+                      <span class="d-none d-lg-block flex-grow-1">Productos Belleza  </span>
+                  </a>
+              </div><!-- End Logo -->
+              <div class="d-flex align-items-center justify-content-center">
+                  
+              </div><!-- End Logo -->
+          </div>
+      </div><!-- End Row -->
+  </div><!-- End Container -->
 
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="#" class="logo d-flex align-items-center">
-        <span class="d-none d-lg-block flex-grow-1">Estética & Cosmetología </span>
-      </a>
-    </div><!-- End Logo -->
+    
 
-    <div class="d-flex align-items-center justify-content-between" style="width: 100%">
-      <a href="#" class="logo d-flex align-items-center" style="width: 100%">
-        <img src="{% static 'home/assets/img/beauty3.png' %}" alt="" style="width: 150px; height: 1600px;">
-      </a>
-    </div><!-- End Logo -->
-       
+  <div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex align-items-center justify-content-center">
+                <a href="#" class="logo d-flex align-items-center">
+                    <span class="d-none d-lg-block flex-grow-1">Estética  </span>
+                </a>
+            </div><!-- End Logo -->
+            <div class="d-flex align-items-center justify-content-center">
+                
+            </div><!-- End Logo -->
+        </div>
+    </div><!-- End Row -->
+</div><!-- End Container -->
+
+
+<div class="container">
+  <div class="row">
+      <div class="col-12">
+          <div class="d-flex align-items-center justify-content-center">
+              <a href="#" class="logo d-flex align-items-center">
+                  <span class="d-none d-lg-block flex-grow-1"> Cosmetología</span>
+              </a>
+          </div><!-- End Logo -->
+          <div class="d-flex align-items-center justify-content-center">
+              
+          </div><!-- End Logo -->
+      </div>
+  </div><!-- End Row -->
+</div><!-- End Container -->
+
     
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
@@ -258,7 +294,7 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="/user_list">
                 <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
+                <span>Lista Usuarios</span>
               </a>
             </li>
             <li>
@@ -312,25 +348,21 @@
       
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link collapsed" data-bs-target="#VS-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Ventas & Servicios</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="VS-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="/create_servicio">
-              <i class="bi bi-circle"></i><span>Crear Servicio</span>
-            </a>
-          </li>
-          <li>
-            <a href="/create_ganancias">
-              <i class="bi bi-circle"></i><span>Crear Ganancias</span>
+              <i class="bi bi-circle"></i><span>Nuevo Servicio</span>
             </a>
           </li>
           <li>
             <a href="/create_ventas">
-              <i class="bi bi-circle"></i><span>Cargar Ventas</span>
+              <i class="bi bi-circle"></i><span>Nueva Ventas</span>
             </a>
           </li>
+                    
         </ul>
       </li><!-- End Forms Nav -->
 

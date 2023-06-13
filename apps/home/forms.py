@@ -4,7 +4,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import UserProfile
 
-
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
@@ -21,18 +20,25 @@ class ClienteForm(forms.ModelForm):
             'comentarios': 'Comentarios',
         }
 
+
+
 class ServicioForm(forms.ModelForm):
+    fecha_servicio = forms.DateField(
+        label='Fecha del Servicio',
+        help_text='Ingrese la fecha en formato DD/MM/YYYY',
+        input_formats=['%d/%m/%Y']  # Especifica el formato de fecha esperado
+    )
+
     class Meta:
         model = Servicio
-        fields = ['cliente', 'fecha_primer_servicio', 'fecha_ultimo_servicio', 'tipo_servicio', 'monto_servicio', 'comentarios']
+        fields = ['cliente', 'fecha_servicio', 'tipo_servicio', 'monto_servicio', 'comentarios']
         labels = {
             'cliente': 'Cliente',
-            'fecha_primer_servicio': 'Fecha del Primer Servicio',
-            'fecha_ultimo_servicio': 'Fecha del Último Servicio',
             'tipo_servicio': 'Tipo de Servicio',
             'monto_servicio': 'Monto del Servicio',
             'comentarios': 'Comentarios',
         }
+
 
 class GananciasForm(forms.ModelForm):
     class Meta:
