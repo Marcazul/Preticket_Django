@@ -1,0 +1,26 @@
+{% extends 'home/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card card-sm">
+        <div class="card-body">
+          <img src="{% static 'home/assets/img/messages-2.jpg' %}" alt="Logo" class="card-img-top">
+          <h1 class="card-title text-center">Bienvenido</h1>
+          <div class="card-text text-center">
+            <div class="d-grid gap-2">
+              <a href="/signup" class="btn btn-primary">Registrarse</a>
+              <a href="/login" class="btn btn-success">Iniciar sesión</a>
+              <a href="/logout" class="btn btn-danger">Cerrar sesión</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

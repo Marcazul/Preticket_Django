@@ -1,0 +1,15 @@
+<!-- editar_servicio.html -->
+
+{% extends 'home/base.html' %}
+
+{% block content %}
+  <h1>Editar Servicio</h1>
+
+  <a href="/" class="boton-volver">Volver a la página principal</a>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    <a href="/" class="btn btn-secondary">Cancelar</a>
+  </form>
+{% endblock %}

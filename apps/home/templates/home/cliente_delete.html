@@ -1,0 +1,12 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+  <h1>Confirmar borrado de cliente</h1>
+  <p>¿Estás seguro de que deseas borrar el cliente "{{ cliente.nombre }}"?</p>
+  <form action="/cliente_delete/{{ cliente.id }}/" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Borrar" class="btn btn-danger">
+    
+    <a type="button" class="btn btn-secondary" href="/lista_clientes">Cancelar</a>
+  </form>
+{% endblock %}

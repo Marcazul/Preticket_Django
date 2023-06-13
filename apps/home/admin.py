@@ -1,9 +1,11 @@
-from django.contrib import admin
-
 # Register your models here.
 
-from .models import Company, Contract, Revenue
+from django.contrib import admin
 
-admin.site.register(Company)
-admin.site.register(Contract)
-admin.site.register(Revenue)
+from .models import Cliente, Servicio, Ganancias, Ventas, UserProfile
+
+admin.site.register(Cliente)
+admin.site.register(Servicio)
+admin.site.register(Ganancias)
+admin.site.register(Ventas)
+admin.site.register(UserProfile)

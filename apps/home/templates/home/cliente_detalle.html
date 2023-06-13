@@ -1,0 +1,89 @@
+{% extends 'home/base.html' %}
+{% block content %}
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title">Detalle del cliente</h1>
+      <p>Nombre del cliente: {{ cliente.nombre }}</p>
+      <p>Fecha de nacimiento: {{ cliente.fecha_nacimiento }}</p>
+      <p>Dirección: {{ cliente.direccion }}</p>
+      <p>Teléfono: {{ cliente.telefono }}</p>
+      <p>Correo electrónico: {{ cliente.email }}</p>
+      <p>Comentarios: {{ cliente.comentarios }}</p>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-body">
+      <h1 class="card-title">Detalle de servicios realizados</h1>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Fecha Servicio</th>
+              <th>Tipo Servicio</th>
+              <th>Monto Servicio</th>
+              <th>Comentarios</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for servicio in servicios %}
+              <tr>
+                <td>{{ servicio.fecha_servicio }}</td>
+                <td>{{ servicio.tipo_servicio }}</td>
+                <td>${{ servicio.monto_servicio }}</td>
+                <td>{{ servicio.comentarios }}</td>
+                <td>
+                  <a href="/editar_servicio/{{ servicio.id }}" class="btn btn-primary btn-sm me-2">Editar</a>
+                  <a href="/borrar_servicio/{{ servicio.id }}" class="btn btn-danger btn-sm">Borrar</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-body">
+      <h1 class="card-title">Detalle de Ventas realizadas</h1>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Fecha Venta</th>
+              <th>Producto</th>
+              <th>Valor Venta</th>
+              <th>Comentarios</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for venta in ventas %}
+              <tr>
+                <td>{{ venta.fecha_venta }}</td>
+                <td>{{ venta.producto }}</td>
+                <td>${{ venta.valor }}</td>
+                <td>{{ venta.comentarios }}</td>
+                <td>
+                  <a href="/editar_venta/{{ venta.id }}" class="btn btn-primary btn-sm me-2">Editar</a>
+                  <a href="/borrar_venta/{{ venta.id }}" class="btn btn-danger btn-sm">Borrar</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-body">
+      <h1 class="card-title">Totales</h1>
+      <p>Total Servicios: ${{ total_servicios }}</p>
+      <p>Total Ventas: ${{ total_ventas }}</p>
+      <p>Total Ganancia del cliente: ${{ total_ganancia }}</p>
+    </div>
+  </div>
+{% endblock %}

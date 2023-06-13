@@ -1,0 +1,22 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-6 text-center">
+      <img src="{{ producto.imagen.url }}" alt="Imagen" class="img-fluid">
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Editar Producto</h2>
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ producto_form.as_p }}
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            <a href="/lista_productos" class="btn btn-secondary">Cancelar</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

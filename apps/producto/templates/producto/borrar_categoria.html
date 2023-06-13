@@ -1,0 +1,17 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+  <div class="card">
+    <div class="card-body">
+      <h2 class="card-title">Borrar Categoría</h2>
+      <p class="card-text">¿Estás seguro de que deseas borrar la categoría "{{ categoria.nombre }}"?</p>
+      <div class="text-center">
+        <form method="post" class="d-inline">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Confirmar Borrado</button>
+        </form>
+        <a href="/lista_categorias" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
